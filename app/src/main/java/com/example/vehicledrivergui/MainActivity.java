@@ -4,23 +4,57 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.SeekBar;
 
-import com.jackandphantom.joystickview.JoyStickView;
+import com.example.vehicledrivergui.packet.OutputPacket;
 
 public class MainActivity extends AppCompatActivity {
+
+    private SeekBar accelerationSeekbar;
+    private SeekBar directionSeekbar;
+
+    private OutputPacket buildPacket(){
+        OutputPacket outputPacket = new OutputPacket();
+        outputPacket.setAcceleration((accelerationSeekbar.getProgress()-50)*2);
+        outputPacket.setDirection((directionSeekbar.getProgress()-50)*2);
+        return outputPacket;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Transport transport = new Transport();
 
-        SeekBar accelerationSeekbar = findViewById(R.id.acceleration);
+        accelerationSeekbar = findViewById(R.id.acceleration);
         accelerationSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                   // System.out.println(i-50);
+                    transport.send(buildPacket());
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                int max = seekBar.getMax();
+                int mid = max / 2;
+                seekBar.setProgress(mid);
+                transport.send(buildPacket());
+            }
+
+            });
+
+        directionSeekbar = findViewById(R.id.direction);
+        directionSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                    System.out.println(i-50);
+              //  System.out.println(i-50);
+                transport.send(buildPacket());
             }
 
             @Override
@@ -33,9 +67,13 @@ public class MainActivity extends AppCompatActivity {
                 int max = seekBar.getMax();
                 int mid = max / 2;
                 seekBar.setProgress(mid);
+                transport.send(buildPacket());
             }
 
-            });
+        });
+
+
+
 
         }
 
