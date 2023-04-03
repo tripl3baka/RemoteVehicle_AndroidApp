@@ -6,6 +6,7 @@ import android.os.StrictMode;
 import android.widget.SeekBar;
 
 import com.example.vehicledrivergui.packet.OutputPacket;
+import com.example.vehicledrivergui.packet.transportPacket.Transport;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -33,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
         accelerationSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                   // System.out.println(i-50);
-                    transport.send(buildPacket());
+                transport.send(buildPacket());
             }
 
             @Override
@@ -47,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
                 int mid = max / 2;
                 seekBar.setProgress(mid);
                 transport.send(buildPacket());
+
+
             }
 
             });
@@ -57,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-              //  System.out.println(i-50);
                 transport.send(buildPacket());
             }
 
@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 int mid = max / 2;
                 seekBar.setProgress(mid);
                 transport.send(buildPacket());
+
             }
 
         });
