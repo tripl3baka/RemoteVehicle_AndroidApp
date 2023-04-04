@@ -1,5 +1,7 @@
 package com.example.vehicledrivergui.packet.transportPacket;
 
+import android.icu.util.Output;
+
 import com.example.vehicledrivergui.packet.OutputPacket;
 import com.google.gson.Gson;
 
@@ -18,6 +20,30 @@ public class TransportWorker extends Thread {
         exit = true;
     }
 
+    private void sendJson(OutputPacket packet){
+        String packetjson = gson.toJson(packet);
+        this.packet = null;
+
+        HttpURLConnection httpURLConnection;
+        try {
+            URL url = new URL("https://webhook.site/a49439e4-22b5-4c87-a8db-89d8a1a73e5d");
+            httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setRequestProperty("Content-Type", "application/json");
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setChunkedStreamingMode(0);
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            outputStream.write(packetjson.getBytes());
+            outputStream.flush();
+            outputStream.close();
+            httpURLConnection.getResponseCode();
+            httpURLConnection.disconnect();
+            //interrupt();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void workerQueue(OutputPacket packet){
         this.packet = packet;
     }
@@ -27,31 +53,11 @@ public class TransportWorker extends Thread {
     @Override
     public void run()
     {
-        while(true) {
-            if (exit) {
-                return;
-            }
-            String packetjson = gson.toJson(packet);
-            if(!packetjson.equals("null"))
+        while(!exit) {
+
+            if(packet != null)
             {
-                HttpURLConnection httpURLConnection;
-                try {
-                    URL url = new URL("https://webhook.site/a49439e4-22b5-4c87-a8db-89d8a1a73e5d");
-                    httpURLConnection = (HttpURLConnection) url.openConnection();
-                    httpURLConnection.setRequestMethod("POST");
-                    httpURLConnection.setRequestProperty("Content-Type", "application/json");
-                    httpURLConnection.setDoOutput(true);
-                    httpURLConnection.setChunkedStreamingMode(0);
-                    OutputStream outputStream = httpURLConnection.getOutputStream();
-                    outputStream.write(packetjson.getBytes());
-                    outputStream.flush();
-                    outputStream.close();
-                    httpURLConnection.getResponseCode();
-                    httpURLConnection.disconnect();
-                    //interrupt();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+              sendJson(packet);
             }
         }
 

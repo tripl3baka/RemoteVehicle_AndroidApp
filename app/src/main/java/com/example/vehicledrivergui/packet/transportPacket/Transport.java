@@ -2,8 +2,6 @@ package com.example.vehicledrivergui.packet.transportPacket;
 import com.example.vehicledrivergui.packet.OutputPacket;
 
 public class Transport extends Thread {
-
-
     TransportWorker transportWorker = new TransportWorker();
 
     public Transport()
@@ -19,6 +17,4 @@ public class Transport extends Thread {
             //transportWorker.threadExit();
 
     }
-
-
 }
