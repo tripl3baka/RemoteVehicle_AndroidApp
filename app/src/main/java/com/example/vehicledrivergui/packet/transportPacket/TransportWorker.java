@@ -20,13 +20,23 @@ public class TransportWorker extends Thread {
         exit = true;
     }
 
+    public synchronized void workerQueue(OutputPacket packet){
+        this.packet = packet;
+    }
+
+    public synchronized OutputPacket getPacket() {
+        return packet;
+    }
+
+    Gson gson = new Gson();
+
     private void sendJson(OutputPacket packet){
         String packetjson = gson.toJson(packet);
         this.packet = null;
 
         HttpURLConnection httpURLConnection;
         try {
-            URL url = new URL("https://webhook.site/a49439e4-22b5-4c87-a8db-89d8a1a73e5d");
+            URL url = new URL("https://webhook.site/11c81846-ee4c-4e38-849b-e1b5ab3f24d8");
             httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/json");
@@ -43,12 +53,6 @@ public class TransportWorker extends Thread {
             throw new RuntimeException(e);
         }
     }
-
-    public void workerQueue(OutputPacket packet){
-        this.packet = packet;
-    }
-
-    Gson gson = new Gson();
 
     @Override
     public void run()

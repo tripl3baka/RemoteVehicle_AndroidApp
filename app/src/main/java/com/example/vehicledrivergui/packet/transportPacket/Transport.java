@@ -14,7 +14,5 @@ public class Transport extends Thread {
     public void send(OutputPacket packet) {
 
             transportWorker.workerQueue(packet);
-            //transportWorker.threadExit();
-
     }
 }

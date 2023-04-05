@@ -7,6 +7,7 @@ import android.widget.SeekBar;
 
 import com.example.vehicledrivergui.packet.OutputPacket;
 import com.example.vehicledrivergui.packet.transportPacket.Transport;
+import com.example.vehicledrivergui.packet.transportPacket.TransportWorker;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -82,5 +83,12 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    public void onDestroy() {
+        super.onDestroy();
+        TransportWorker transportworker = new TransportWorker();
+        transportworker.threadExit();
+    }
 
-}
+
+
+    }
