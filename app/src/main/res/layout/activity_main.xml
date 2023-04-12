@@ -10,14 +10,15 @@
         android:id="@+id/direction"
         android:layout_width="217dp"
         android:layout_height="95dp"
-        android:layout_marginStart="76dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="104dp"
+        android:max="100"
+        android:progress="50"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
-        android:layout_gravity="center_horizontal"
-        android:max="100"
-        android:progress="50" />
+        app:layout_constraintVertical_bias="0.677" />
 
     <SeekBar
         android:id="@+id/acceleration"
@@ -30,8 +31,33 @@
         app:layout_constraintBottom_toBottomOf="parent"
 
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.769"
         app:layout_constraintStart_toEndOf="@+id/direction"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.679" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="889dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Controls" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sensors" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings" />
+    </com.google.android.material.tabs.TabLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

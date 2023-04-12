@@ -48,7 +48,6 @@ public class TransportWorker extends Thread {
             outputStream.close();
             httpURLConnection.getResponseCode();
             httpURLConnection.disconnect();
-            //interrupt();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
