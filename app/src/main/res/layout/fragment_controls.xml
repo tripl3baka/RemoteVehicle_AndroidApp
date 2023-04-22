@@ -13,8 +13,8 @@
 
         <SeekBar
             android:id="@+id/direction"
-            android:layout_width="217dp"
-            android:layout_height="95dp"
+            android:layout_width="375dp"
+            android:layout_height="242dp"
             android:layout_gravity="center_horizontal"
             android:max="100"
             android:progress="50"
@@ -28,8 +28,8 @@
 
         <SeekBar
             android:id="@+id/acceleration"
-            android:layout_width="219dp"
-            android:layout_height="93dp"
+            android:layout_width="240dp"
+            android:layout_height="261dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginEnd="92dp"
             android:max="100"

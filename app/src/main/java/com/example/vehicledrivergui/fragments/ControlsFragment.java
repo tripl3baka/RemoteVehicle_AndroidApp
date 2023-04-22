@@ -33,7 +33,7 @@ public class ControlsFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        Transport transport = new Transport();
+        Transport transport = Transport.getInstance();
 
         View view = inflater.inflate(R.layout.fragment_controls, container, false);
 

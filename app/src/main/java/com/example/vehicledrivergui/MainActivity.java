@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager2 viewPager;
 
     @SuppressLint("MissingInflatedId")
-    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

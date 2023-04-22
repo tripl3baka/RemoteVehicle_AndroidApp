@@ -1,12 +1,21 @@
 package com.example.vehicledrivergui.packet.transportPacket;
 import com.example.vehicledrivergui.packet.OutputPacket;
 
-public class Transport extends Thread {
+public final class Transport extends Thread {
+
+    private static Transport instance = null;
     TransportWorker transportWorker = new TransportWorker();
 
-    public Transport()
+    private Transport()
     {
         transportWorker.start();
+    }
+
+    public static synchronized Transport getInstance(){
+        if(instance == null){
+            instance = new Transport();
+        }
+        return instance;
     }
 
 
