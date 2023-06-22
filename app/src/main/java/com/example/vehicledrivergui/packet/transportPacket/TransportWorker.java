@@ -36,17 +36,17 @@ public class TransportWorker extends Thread {
 
         HttpURLConnection httpURLConnection;
         try {
-            URL url = new URL("https://webhook.site/b02e70fa-f2d6-46f6-8d9d-b38664b5ad9e");
+            URL url = new URL("http://192.168.0.80/updatedata");
             httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/json");
             httpURLConnection.setDoOutput(true);
-            httpURLConnection.setChunkedStreamingMode(0);
+            httpURLConnection.setFixedLengthStreamingMode(packetjson.getBytes().length);
             OutputStream outputStream = httpURLConnection.getOutputStream();
             outputStream.write(packetjson.getBytes());
             outputStream.flush();
             outputStream.close();
-            httpURLConnection.getResponseCode();
+            System.out.println(httpURLConnection.getResponseCode());
             httpURLConnection.disconnect();
         } catch (IOException e) {
             throw new RuntimeException(e);

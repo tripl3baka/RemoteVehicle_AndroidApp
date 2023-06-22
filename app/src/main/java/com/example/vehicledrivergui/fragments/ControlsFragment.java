@@ -86,9 +86,6 @@ public class ControlsFragment extends Fragment {
         });
 
 
-
-
-
         return view;
 
 
